@@ -1,0 +1,5 @@
+.DS_Store
+flask/*
+*.pyc
+app/data/*
+*.swp

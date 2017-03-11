@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <h1>Regression</h1>
+    <div class="row">
+        <div class="col-md-4">
+              <div class="divsec">
+                <div id="visnet"></div>
+              </div>
+                <table class="table table-hover dataTable table-striped" role="grid">
+                <thead>
+                <tr role="row">
+                    <th class="sorting_asc"
+                        ng-repeat="table_head in table.table_head"
+                        aria-controls="table-example-fixed" rowspan="1" colspan="1">
+                        {{table_head}}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" ng-click="onClickRow(line['stock_no'])"
+                    ng-class="isSelected(line['stock_no'])"
+                    ng-repeat="line in query_result">
+                    <td>
+                      {{$index+1}}
+                    </td>
+                    <td>
+                      {{stock_id2no(line["stock_no"])}}
+                    </td>
+                    <td>
+                      {{line["predict"]|number:4}}
+                    </td>
+                    <td>
+                      {{line["target"]|number:4}}
+                    </td>          
+                    <td>
+                      {{line["reward"]|number:4}}
+                    </td>
+                    <td>
+                      {{line["predict"] - line["target"]|number:4}}
+                    </td>
+                </tr>
+                </tbody>
+              </table>
+      </div>
+        <div class="col-md-8">
+          <ul class="nav nav-pills" role="tablist">
+            <li ng-repeat="y in yearlist" role="presentation"
+            ng-class="isActive(y, year)"
+            ng-click="onClickYear(y)">
+              <a>{{y}}</a>
+            </li>
+          </ul>
+          <ul class="nav nav-pills" role="tablist">
+            <li ng-repeat="m in monthlist" role="presentation"
+            ng-class="isActive(m, month)"
+            ng-click="onClickMonth(m)">
+              <a>{{m}}</a>
+            </li>
+          </ul>
+          <ul class="nav nav-pills" role="tablist">
+            <li ng-repeat="d in datelist[year][month]" role="presentation"
+            ng-class="isActive(d, date)"
+            ng-click="onClickDate(d)">
+              <a>{{d}}</a>
+            </li>
+          </ul>
+          <h2>{{stock_no}} / {{date}} / {{seq_len}}</h2>
+          <div fund-line
+           data='price_seq'
+           xkey='xkey'
+           ykeys='ykeys'
+           labels='labels' style="height: 200px">
+         </div>
+      </div>
+    </div>
+    </div>
+</div>
